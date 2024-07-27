@@ -14,6 +14,7 @@ let rightTimerId;
 let isJumping = true;
 let isGoingLeft = false;
 let isGoingRight = false;
+let score=0;
 
 
 function createDoodler(){
@@ -55,6 +56,16 @@ function movePlatforms(){
             platform.bottom -=4; //lower;
             let visual = platform.visual;
             visual.style.bottom = platform.bottom + 'px';
+
+            if(platform.bottom<10){
+                let firstPlatform = platforms[0].visual;
+                firstPlatform.classList.remove('platform');
+                platforms.shift(); //remove first platform
+                score++;
+                //get new platforms
+                let newPlatform = new Platform(600); //new one will be at the top
+                platforms.push(newPlatform);
+            }
         })
     }
 }
@@ -98,8 +109,14 @@ function fall(){
 function gameOver(){
     console.log("WaWa Game Over!");
     isGameOver=true;
+    while(grid.firstChild){
+        grid.removeChild(grid.firstChild);
+    }
+    grid.innerHTML = score;
     clearInterval(upTimerId);
     clearInterval(downTimerId);
+    clearInterval(leftTimerId);
+    clearInterval(rightTimerId);
 }
 
 function control(event){
