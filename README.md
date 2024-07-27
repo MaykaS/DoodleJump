@@ -23,8 +23,8 @@ Doodle Jump clone with js,HTML,CSS
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/your-username/panda-jump.git]
-   cd panda-jump
+   git clone https://github.com/MaykaS/DoodleJump.git
+   cd DoodleJump
    ```
 
 2. **Open the Project**
