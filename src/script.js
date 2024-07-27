@@ -1,11 +1,15 @@
 //grab grid
 const grid = document.querySelector('.grid');
 const doodler = document.createElement('div');
+const startButton = document.getElementById('startButton');
+const restartButton = document.getElementById('restartButton');
+
+
 let doodlerLeftSpace = 50;
-let startPoint = 100;
+let startPoint=150;
 let doodlerBottomSpace =startPoint;
 let platformCount = 5;
-let platforms = [];
+let platforms=[];
 let isGameOver=false;
 let upTimerId;
 let downTimerId;
@@ -95,7 +99,7 @@ function fall(){
         platforms.forEach(platform =>{
             if(doodlerBottomSpace>=platform.bottom && 
                 doodlerBottomSpace<=(platform.bottom+15) && 
-                (doodlerLeftSpace + 60) >=platform.left &&
+                (doodlerLeftSpace + 70) >=platform.left &&
                 doodlerLeftSpace <= (platform.left +85) && !isJumping){
                     console.log("Pew Landed");
                     startPoint = doodlerBottomSpace; //override 
@@ -113,10 +117,14 @@ function gameOver(){
         grid.removeChild(grid.firstChild);
     }
     grid.innerHTML = score;
+    startButton.style.display='block';
+    startButton.style.position= 'center';
+
     clearInterval(upTimerId);
     clearInterval(downTimerId);
     clearInterval(leftTimerId);
     clearInterval(rightTimerId);
+
 }
 
 function control(event){
@@ -148,7 +156,7 @@ function moveRight(){
     isGoingLeft=false;
     isGoingRight=true;
     rightTimerId=setInterval(function(){
-        if(doodlerLeftSpace<=(400-60)){ //grid.width - doodler.width
+        if(doodlerLeftSpace<=(400-70)){ //grid.width - doodler.width
             doodlerLeftSpace+=5;
             doodler.style.left=doodlerLeftSpace+'px';
         }else moveLeft();
@@ -168,24 +176,34 @@ function start(){
         setInterval(movePlatforms,30); //constantly move
         jump();
         document.addEventListener('keyup',control); //key control
-    } 
+        startButton.style.display='none';
+    }else{
+        // Reset game state
+        isGameOver = false;
+        doodlerLeftSpace = 50;
+        startPoint = 150;
+        platforms = [];
+        score = 0;
+        grid.innerHTML = ''; // Clear grid
+        
+    }
 
 }
-start(); //attach to button
+startButton.addEventListener('click',start);
 
 /**
  * Add-ons = 
- *  button to start
- *  platforms within the grid 
+ *  (V) button to start
+ *  (V) platforms within the grid 
  *  (V) doodle jump
  *  (V) doodle fall  
  *  (V) if fall on latform jump again  
  *  (V) game over
- *  score
- *  always adding platforms 
+ *  (V) score
+ *  (V) always adding platforms 
  *  (V) start on platform
  *  (V) controle left
  *  (V) controle right
- * remove hardocoded things
+ * start button in the middle on restart
  *  
  */
