@@ -1,7 +1,7 @@
 .grid{
     width: 400px;
     height: 600px;
-    background-color: yellow;
+    background-color: rgb(238, 238, 124);
     position: relative;
 }
 
@@ -10,6 +10,8 @@
     height: 85px;
     background-color: red;
     position: absolute;
+    bottom: 100px;
+    left: 50px;
 }
 
 .platform{
