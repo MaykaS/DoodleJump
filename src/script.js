@@ -109,6 +109,9 @@ function control(event){
     else if(event.key === "ArrowRight"){
         moveRight();
     }
+    else if(event.key === "ArrowUp"){
+        moveStraight();
+    }
 }
 
 function moveLeft(){
@@ -133,6 +136,12 @@ function moveRight(){
             doodler.style.left=doodlerLeftSpace+'px';
         }else moveLeft();
     },30);
+}
+function moveStraight(){
+    clearInterval(leftTimerId);
+    clearInterval(rightTimerId);
+    isGoingLeft=false;
+    isGoingRight=false;
 }
 
 function start(){
